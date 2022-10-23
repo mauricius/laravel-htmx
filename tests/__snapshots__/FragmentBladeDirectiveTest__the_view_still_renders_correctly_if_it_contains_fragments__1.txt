@@ -1,0 +1,5 @@
+<h1>Begin</h1>
+
+    <p>Hello from htmx</p>
+
+<h2>End</h2>
