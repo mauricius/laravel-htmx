@@ -13,8 +13,6 @@ jobs:
                 include:
                     -   laravel: 9.*
                         testbench: 7.*
-                    -   laravel: 8.*
-                        testbench: ^6.23
         runs-on: ubuntu-latest
         name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
         steps:
