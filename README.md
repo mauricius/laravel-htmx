@@ -6,6 +6,8 @@ Laravel integration for [htmx](https://htmx.org/).
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/mauricius/laravel-htmx/run-tests?label=tests)](https://github.com/mauricius/laravel-htmx/actions?query=workflow%3Arun-tests+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/mauricius/laravel-htmx.svg?style=flat-square)](https://packagist.org/packages/mauricius/laravel-htmx)
 
+Supported Laravel Versions >= v8.80.0.
+
 ## Installation
 
 You can install the package via composer:
@@ -167,7 +169,7 @@ Route::get('/', function ($id) {
 });
 ```
 
-Or we can render only the `archive-ui` fragment of the template by using the `fragment` macro defined in the `\Illuminate\View\View` class:
+Or we can render only the `archive-ui` fragment of the template by using the `renderFragment` macro defined in the `\Illuminate\View\View` class:
 
 ```php
 Route::patch('/contacts/{id}/unarchive', function ($id) {
@@ -176,17 +178,17 @@ Route::patch('/contacts/{id}/unarchive', function ($id) {
     // The following approaches are equivalent
 
     // Using the View Facade
-    return \Illuminate\Support\Facades\View::fragment('contacts.detail', 'archive-ui', compact('contact'));
+    return \Illuminate\Support\Facades\View::renderFragment('contacts.detail', 'archive-ui', compact('contact'));
 
     // Using the view() helper
-    return view()->fragment('contacts.detail', 'archive-ui', compact('contact'));
+    return view()->renderFragment('contacts.detail', 'archive-ui', compact('contact'));
+
+    // Using the HtmxResponse Facade
+    return \Mauricius\LaravelHtmx\Facades\HtmxResponse::renderFragment('contacts.detail', 'archive-ui', compact('contact'));
 
     // Using the HtmxResponse class
     return with(new \Mauricius\LaravelHtmx\Http\HtmxResponse())
-        ->fragment('contacts.detail', 'archive-ui', compact('contact'));
-
-    // Using the HtmxResponse Facade
-    return Mauricius\LaravelHtmx\Facades\HtmxResponse::fragment('contacts.detail', 'archive-ui', compact('contact'));
+        ->renderFragment('contacts.detail', 'archive-ui', compact('contact'));
 });
 ```
 
