@@ -27,7 +27,7 @@ class LaravelHtmxServiceProvider extends ServiceProvider
 
         $this->app->bind(HtmxRequest::class, fn ($container) => HtmxRequest::createFrom($container['request']));
 
-        View::macro('fragment', function ($view, $fragment, array $data = []) {
+        View::macro('renderFragment', function ($view, $fragment, array $data = []) {
             return BladeFragment::render($view, $fragment, $data);
         });
     }

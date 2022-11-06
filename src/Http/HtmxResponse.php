@@ -74,7 +74,7 @@ class HtmxResponse extends Response
         return $this;
     }
 
-    public function fragment(string $view, string $fragment, array $data = []): static
+    public function renderFragment(string $view, string $fragment, array $data = []): static
     {
         $this->fragments = [BladeFragment::render($view, $fragment, $data)];
 
@@ -88,7 +88,7 @@ class HtmxResponse extends Response
         return $this;
     }
 
-    public function addRawFragment(string $rendered): static
+    public function addRenderedFragment(string $rendered): static
     {
         $this->fragments[] = $rendered;
 
@@ -98,6 +98,7 @@ class HtmxResponse extends Response
     public function prepare(Request $request): static
     {
         $this->appendTriggers();
+        $this->setContent($this->getContent());
 
         return parent::prepare($request);
     }

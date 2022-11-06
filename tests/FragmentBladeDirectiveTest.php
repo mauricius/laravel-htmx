@@ -26,7 +26,7 @@ class FragmentBladeDirectiveTest extends TestCase
     {
         $message = 'htmx';
 
-        $renderedView = view()->fragment('basic', 'test', compact('message'));
+        $renderedView = view()->renderFragment('basic', 'test', compact('message'));
 
         $this->assertMatchesSnapshot($renderedView);
     }
@@ -40,6 +40,6 @@ class FragmentBladeDirectiveTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessageMatches("/No fragment called \"$fragment\" exists in \".*\/tests\/views\/$view\.blade\.php\"/m");
 
-        view()->fragment($view, $fragment);
+        view()->renderFragment($view, $fragment);
     }
 }

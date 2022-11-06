@@ -151,7 +151,7 @@ class HtmxResponseTest extends TestCase
             $message = 'Htmx';
 
             return with(new HtmxResponse())
-                ->fragment('basic', 'test', compact('message'));
+                ->renderFragment('basic', 'test', compact('message'));
         });
 
         $response = $this
@@ -180,13 +180,13 @@ class HtmxResponseTest extends TestCase
     }
 
     /** @test */
-    public function the_response_renders_a_raw_fragment()
+    public function the_response_returns_a_rendered_fragment()
     {
         Route::get('test', function () {
             $message = 'Htmx';
 
             return with(new HtmxResponse())
-                ->addRawFragment(Blade::render('<p>Hello from {{ $message}}</p>', compact('message')));
+                ->addRenderedFragment(Blade::render('<p>Hello from {{ $message}}</p>', compact('message')));
         });
 
         $response = $this
