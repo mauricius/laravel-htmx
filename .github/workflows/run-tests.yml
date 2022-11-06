@@ -13,10 +13,10 @@ jobs:
                 include:
                     -   laravel: 9.*
                         testbench: 7.*
-                    -   laravel: 8.*
+                    -   laravel: ^8.80
                         testbench: 6.23
                 exclude:
-                    -   laravel: 8.*
+                    -   laravel: ^8.80
                         php: 8.2
 
         runs-on: ubuntu-latest
