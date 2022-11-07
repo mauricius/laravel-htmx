@@ -13,9 +13,9 @@ class LaravelHtmxServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->publishes([
-            __DIR__.'/../config/laravel-htmx.php' => config_path('laravel-htmx.php'),
-        ], 'config');
+        if ($this->app->runningInConsole()) {
+            $this->bootForConsole();
+        }
 
         $this->app['blade.compiler']->directive('fragment', function () {
             return '';
@@ -30,6 +30,18 @@ class LaravelHtmxServiceProvider extends ServiceProvider
         View::macro('renderFragment', function ($view, $fragment, array $data = []) {
             return BladeFragment::render($view, $fragment, $data);
         });
+    }
+    
+    /**
+     * Console-specific booting.
+     *
+     * @return void
+     */
+    protected function bootForConsole()
+    {
+        $this->publishes([
+            __DIR__.'/../config/laravel-htmx.php' => config_path('laravel-htmx.php'),
+        ], 'config');
     }
 
     public function register()
