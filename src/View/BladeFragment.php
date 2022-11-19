@@ -14,7 +14,7 @@ class BladeFragment
 
         $content = File::get($path);
 
-        $re = sprintf('/@fragment\("%s"\)(.*)@endfragment/msU', $fragment);
+        $re = sprintf('/(?<!@)@fragment[ \t]*\([\'"]{1}%s[\'"]{1}\)(.*?)@endfragment/s', $fragment);
 
         preg_match($re, $content, $matches);
 

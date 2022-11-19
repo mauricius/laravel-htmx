@@ -22,11 +22,21 @@ class FragmentBladeDirectiveTest extends TestCase
     }
 
     /** @test */
-    public function the_fragment_view_macro_can_render_a_single_fragment()
+    public function the_render_fragment_view_macro_can_render_a_single_fragment_whose_name_is_enclosed_in_double_quotes()
     {
         $message = 'htmx';
 
-        $renderedView = view()->renderFragment('basic', 'test', compact('message'));
+        $renderedView = view()->renderFragment('basic', 'double', compact('message'));
+
+        $this->assertMatchesSnapshot($renderedView);
+    }
+
+    /** @test */
+    public function the_render_fragment_view_macro_can_render_a_single_fragment_whose_name_is_enclosed_in_single_quotes()
+    {
+        $message = 'htmx';
+
+        $renderedView = view()->renderFragment('basic', 'single', compact('message'));
 
         $this->assertMatchesSnapshot($renderedView);
     }

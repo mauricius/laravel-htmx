@@ -19,10 +19,10 @@ class HtmxResponseTest extends TestCase
     {
         Route::get('test', fn () => with(new HtmxResponse())->location('http://foobar'));
 
-        $this
-            ->get('test')
-            ->assertOk()
-            ->assertHeader('HX-Location', 'http://foobar');
+        $response = $this->get('test');
+
+        $response->assertOk();
+        $response->assertHeader('HX-Location', 'http://foobar');
     }
 
     /** @test */
@@ -30,10 +30,10 @@ class HtmxResponseTest extends TestCase
     {
         Route::get('test', fn () => with(new HtmxResponse())->pushUrl('http://foobar'));
 
-        $this
-            ->get('test')
-            ->assertOk()
-            ->assertHeader('HX-Push-Url', 'http://foobar');
+        $response = $this->get('test');
+
+        $response->assertOk();
+        $response->assertHeader('HX-Push-Url', 'http://foobar');
     }
 
     /** @test */
@@ -41,10 +41,10 @@ class HtmxResponseTest extends TestCase
     {
         Route::get('test', fn () => with(new HtmxResponse())->replaceUrl('http://foobar'));
 
-        $this
-            ->get('test')
-            ->assertOk()
-            ->assertHeader('HX-Replace-Url', 'http://foobar');
+        $response = $this->get('test');
+
+        $response->assertOk();
+        $response->assertHeader('HX-Replace-Url', 'http://foobar');
     }
 
     /** @test */
@@ -52,10 +52,10 @@ class HtmxResponseTest extends TestCase
     {
         Route::get('test', fn () => with(new HtmxResponse())->reswap('innerHTML'));
 
-        $this
-            ->get('test')
-            ->assertOk()
-            ->assertHeader('HX-Reswap', 'innerHTML');
+        $response = $this->get('test');
+
+        $response->assertOk();
+        $response->assertHeader('HX-Reswap', 'innerHTML');
     }
 
     /** @test */
@@ -63,10 +63,10 @@ class HtmxResponseTest extends TestCase
     {
         Route::get('test', fn () => with(new HtmxResponse())->retarget('.update-me'));
 
-        $this
-            ->get('test')
-            ->assertOk()
-            ->assertHeader('HX-Retarget', '.update-me');
+        $response = $this->get('test');
+
+        $response->assertOk();
+        $response->assertHeader('HX-Retarget', '.update-me');
     }
 
     /** @test */
@@ -74,10 +74,10 @@ class HtmxResponseTest extends TestCase
     {
         Route::get('test', fn () => with(new HtmxResponse())->addTrigger('htmx:abort'));
 
-        $this
-            ->get('test')
-            ->assertOk()
-            ->assertHeader('HX-Trigger', 'htmx:abort');
+        $response = $this->get('test');
+
+        $response->assertOk();
+        $response->assertHeader('HX-Trigger', 'htmx:abort');
     }
 
     /** @test */
@@ -88,10 +88,10 @@ class HtmxResponseTest extends TestCase
             ->addTrigger('htmx:load')
         );
 
-        $this
-            ->get('test')
-            ->assertOk()
-            ->assertHeader('HX-Trigger', 'htmx:abort,htmx:load');
+        $response = $this->get('test');
+
+        $response->assertOk();
+        $response->assertHeader('HX-Trigger', 'htmx:abort,htmx:load');
     }
 
     /** @test */
@@ -99,10 +99,10 @@ class HtmxResponseTest extends TestCase
     {
         Route::get('test', fn () => with(new HtmxResponse())->addTriggerAfterSettle('htmx:abort'));
 
-        $this
-            ->get('test')
-            ->assertOk()
-            ->assertHeader('HX-Trigger-After-Settle', 'htmx:abort');
+        $response = $this->get('test');
+
+        $response->assertOk();
+        $response->assertHeader('HX-Trigger-After-Settle', 'htmx:abort');
     }
 
     /** @test */
@@ -113,10 +113,10 @@ class HtmxResponseTest extends TestCase
             ->addTriggerAfterSettle('htmx:load')
         );
 
-        $this
-            ->get('test')
-            ->assertOk()
-            ->assertHeader('HX-Trigger-After-Settle', 'htmx:abort,htmx:load');
+        $response = $this->get('test');
+
+        $response->assertOk();
+        $response->assertHeader('HX-Trigger-After-Settle', 'htmx:abort,htmx:load');
     }
 
     /** @test */
@@ -124,10 +124,10 @@ class HtmxResponseTest extends TestCase
     {
         Route::get('test', fn () => with(new HtmxResponse())->addTriggerAfterSwap('htmx:abort'));
 
-        $this
-            ->get('test')
-            ->assertOk()
-            ->assertHeader('HX-Trigger-After-Swap', 'htmx:abort');
+        $response = $this->get('test');
+
+        $response->assertOk();
+        $response->assertHeader('HX-Trigger-After-Swap', 'htmx:abort');
     }
 
     /** @test */
@@ -138,10 +138,10 @@ class HtmxResponseTest extends TestCase
             ->addTriggerAfterSwap('htmx:load')
         );
 
-        $this
-            ->get('test')
-            ->assertOk()
-            ->assertHeader('HX-Trigger-After-Swap', 'htmx:abort,htmx:load');
+        $response = $this->get('test');
+
+        $response->assertOk();
+        $response->assertHeader('HX-Trigger-After-Swap', 'htmx:abort,htmx:load');
     }
 
     /** @test */
@@ -151,12 +151,12 @@ class HtmxResponseTest extends TestCase
             $message = 'Htmx';
 
             return with(new HtmxResponse())
-                ->renderFragment('basic', 'test', compact('message'));
+                ->renderFragment('basic', 'double', compact('message'));
         });
 
-        $response = $this
-            ->get('test')
-            ->assertOk();
+        $response = $this->get('test');
+
+        $response->assertOk();
 
         $this->assertMatchesSnapshot($response->getContent());
     }
@@ -172,9 +172,9 @@ class HtmxResponseTest extends TestCase
                 ->addFragment('multiple', 'lower');
         });
 
-        $response = $this
-            ->get('test')
-            ->assertOk();
+        $response = $this->get('test');
+
+        $response->assertOk();
 
         $this->assertMatchesSnapshot($response->getContent());
     }
@@ -189,9 +189,9 @@ class HtmxResponseTest extends TestCase
                 ->addRenderedFragment(Blade::render('<p>Hello from {{ $message}}</p>', compact('message')));
         });
 
-        $response = $this
-            ->get('test')
-            ->assertOk();
+        $response = $this->get('test');
+
+        $response->assertOk();
 
         $this->assertMatchesSnapshot($response->getContent());
     }
