@@ -3,7 +3,7 @@
 Laravel integration for [htmx](https://htmx.org/).
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mauricius/laravel-htmx.svg?style=flat-square)](https://packagist.org/packages/mauricius/laravel-htmx)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/mauricius/laravel-htmx/run-tests?label=tests)](https://github.com/mauricius/laravel-htmx/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/mauricius/laravel-htmx/run-tests.yml?branch=master&label=tests)](https://github.com/mauricius/laravel-htmx/actions?query=workflow%3Arun-tests+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/mauricius/laravel-htmx.svg?style=flat-square)](https://packagist.org/packages/mauricius/laravel-htmx)
 
 Supported Laravel Versions >= v8.80.0.

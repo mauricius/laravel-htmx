@@ -31,7 +31,7 @@ class LaravelHtmxServiceProvider extends ServiceProvider
             return BladeFragment::render($view, $fragment, $data);
         });
     }
-    
+
     /**
      * Console-specific booting.
      *

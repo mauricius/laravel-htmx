@@ -8,14 +8,18 @@ jobs:
             fail-fast: true
             matrix:
                 php: [8.0, 8.1, 8.2]
-                laravel: [^8.80, 9.*]
+                laravel: [^8.80, 9.*, 10.*]
                 dependency-version: [prefer-lowest, prefer-stable]
                 include:
+                    -   laravel: 10.*
+                        testbench: 8.*
                     -   laravel: 9.*
                         testbench: 7.*
                     -   laravel: ^8.80
                         testbench: 6.23
                 exclude:
+                    -   laravel: 10.*
+                        php: 8.0
                     -   laravel: ^8.80
                         php: 8.2
 
@@ -29,7 +33,6 @@ jobs:
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: ${{ matrix.php }}
-                    extensions: dom, mbstring, libxml, pdo, sqlite, pdo_sqlite
                     coverage: none
 
             -   name: Install dependencies

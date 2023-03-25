@@ -83,7 +83,9 @@ class HtmxResponseTest extends TestCase
     /** @test */
     public function the_response_supports_triggering_multiple_events()
     {
-        Route::get('test', fn () => with(new HtmxResponse())
+        Route::get(
+            'test',
+            fn () => with(new HtmxResponse())
             ->addTrigger('htmx:abort')
             ->addTrigger('htmx:load')
         );
@@ -108,7 +110,9 @@ class HtmxResponseTest extends TestCase
     /** @test */
     public function the_response_supports_triggering_after_settle_multiple_events()
     {
-        Route::get('test', fn () => with(new HtmxResponse())
+        Route::get(
+            'test',
+            fn () => with(new HtmxResponse())
             ->addTriggerAfterSettle('htmx:abort')
             ->addTriggerAfterSettle('htmx:load')
         );
@@ -133,7 +137,9 @@ class HtmxResponseTest extends TestCase
     /** @test */
     public function the_response_supports_triggering_after_swap_multiple_multiple_events()
     {
-        Route::get('test', fn () => with(new HtmxResponse())
+        Route::get(
+            'test',
+            fn () => with(new HtmxResponse())
             ->addTriggerAfterSwap('htmx:abort')
             ->addTriggerAfterSwap('htmx:load')
         );
