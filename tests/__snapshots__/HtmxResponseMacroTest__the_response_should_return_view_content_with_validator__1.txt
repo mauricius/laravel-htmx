@@ -1,0 +1,5 @@
+<h1>Begin</h1>
+<label>htmx</label>
+<input type="text" name="email" value="">
+	<p>The email field must be a valid email address.</p>
+<h2>End</h2>

@@ -1,0 +1,4 @@
+<h1>Begin</h1>
+<label>htmx</label>
+<input type="text" name="email" value="">
+<h2>End</h2>

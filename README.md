@@ -134,6 +134,19 @@ Route::get('/', function (HtmxRequest $request)
 
 You can call those methods multiple times if you want to trigger multiple events.
 
+- `response()->htmx(...)`
+
+If you just want to pass the simple HTML response using Laravel view, you can also use the `htmx()` macro response.
+``` php
+Route::get('/', fn () => response()->htmx($viewName, $viewData));
+```
+
+Additionally, this macro can also handle Laravel's built-in validation `$errors` message bag and `old()` input session data:
+``` php
+Route::get('/', fn () => response()->htmx($viewName, $viewData, $validator));
+```
+This can be useful when submitting forms via HTMX and you want to show validation errors within the same response.
+
 ### Render Blade Fragments
 
 This library also provides a basic Blade extension to render [template fragments](https://htmx.org/essays/template-fragments/).
