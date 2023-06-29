@@ -8,6 +8,7 @@ All notable changes to `laravel-htmx` will be documented in this file.
 
 - Added support for nested fragments using the wonderful [Blade Parser](https://github.com/stillat/blade-parser)
 - Removed support for Laravel 8
+- Removed support for PHP 8.0
 
 ## 0.3.0 - 2023-03-25
 
