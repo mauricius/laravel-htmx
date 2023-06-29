@@ -18,7 +18,7 @@
     "require": {
         "php": "^8.0|^8.1|^8.2",
         "illuminate/contracts": "^9.0|^10.0",
-        "stillat/blade-parser": "^1.0"
+        "stillat/blade-parser": "^1.4"
     },
     "require-dev": {
         "nunomaduro/collision": "^5.0|^6.0|^7.0",
