@@ -17,11 +17,11 @@ class LaravelHtmxServiceProvider extends ServiceProvider
             $this->bootForConsole();
         }
 
-        $this->app['blade.compiler']->directive('fragment', function () {
+        $this->app['blade.compiler']->directive(BladeFragment::OPEN, function () {
             return '';
         });
 
-        $this->app['blade.compiler']->directive('endfragment', function () {
+        $this->app['blade.compiler']->directive(BladeFragment::CLOSE, function () {
             return '';
         });
 

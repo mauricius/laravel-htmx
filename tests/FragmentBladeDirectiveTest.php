@@ -42,6 +42,24 @@ class FragmentBladeDirectiveTest extends TestCase
     }
 
     /** @test */
+    public function the_render_fragment_view_macro_can_render_an_inline_fragment()
+    {
+        $renderedView = view()->renderFragment('inline', 'inline');
+
+        $this->assertMatchesSnapshot($renderedView);
+    }
+
+    /** @test */
+    public function the_render_fragment_view_macro_can_render_a_fragment_even_if_it_contains_nested_fragments()
+    {
+        $message = 'htmx';
+
+        $renderedView = view()->renderFragment('nested', 'outer', compact('message'));
+
+        $this->assertMatchesSnapshot($renderedView);
+    }
+
+    /** @test */
     public function it_throws_an_exception_if_the_specified_fragment_does_not_exists()
     {
         $fragment = 'missing';
