@@ -11,7 +11,7 @@ use Mauricius\LaravelHtmx\View\BladeFragment;
 
 class LaravelHtmxServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
@@ -37,14 +37,14 @@ class LaravelHtmxServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function bootForConsole()
+    protected function bootForConsole(): void
     {
         $this->publishes([
             __DIR__.'/../config/laravel-htmx.php' => config_path('laravel-htmx.php'),
         ], 'config');
     }
 
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(
             __DIR__.'/../config/laravel-htmx.php',

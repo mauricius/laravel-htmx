@@ -16,6 +16,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     {
         parent::setUp();
 
+        // Testbench seems to forget this hint from time to time
+        View::addNamespace('__components', storage_path('framework/views'));
+
         View::addLocation(__DIR__.'/views');
     }
 

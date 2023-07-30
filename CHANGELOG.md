@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-htmx` will be documented in this file.
 
+## 0.4.0 - 2023-08-02
+
+### What's Changed
+
+- Added support for nested fragments (requires `ext-mbstring`)
+
+## 0.3.0 - 2023-03-25
+
+### What's Changed
+
+- Added support for Laravel 10
+
 ## 0.2.1 - 2022-11-19
 
 ### What's Changed
