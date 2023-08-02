@@ -6,4 +6,8 @@
     @endfragment
     <p>Outer content end</p>
 @endfragment
+
+@fragment("another")
+    <p>here's another</p>
+@endfragment
 <h2>End</h2>
