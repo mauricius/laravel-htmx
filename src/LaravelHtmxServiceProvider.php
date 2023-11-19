@@ -17,13 +17,9 @@ class LaravelHtmxServiceProvider extends ServiceProvider
             $this->bootForConsole();
         }
 
-        $this->app['blade.compiler']->directive('fragment', function () {
-            return '';
-        });
+        $this->app['blade.compiler']->directive('fragment', fn () => '');
 
-        $this->app['blade.compiler']->directive('endfragment', function () {
-            return '';
-        });
+        $this->app['blade.compiler']->directive('endfragment', fn () => '');
 
         $this->app->bind(HtmxRequest::class, fn ($container) => HtmxRequest::createFrom($container['request']));
 
