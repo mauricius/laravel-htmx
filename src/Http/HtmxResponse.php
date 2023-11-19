@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mauricius\LaravelHtmx\Http;
 
 use Illuminate\Http\Response;
+use Mauricius\LaravelHtmx\Utils;
 use Mauricius\LaravelHtmx\View\BladeFragment;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -53,23 +54,23 @@ class HtmxResponse extends Response
         return $this;
     }
 
-    public function addTrigger(string $event): static
+    public function addTrigger(string $key, string|array|null $body = null): static
     {
-        $this->triggers[] = $event;
+        $this->triggers[$key] = $body;
 
         return $this;
     }
 
-    public function addTriggerAfterSettle(string $event): static
+    public function addTriggerAfterSettle(string $key, string|array|null $body = null): static
     {
-        $this->triggersAfterSettle[] = $event;
+        $this->triggersAfterSettle[$key] = $body;
 
         return $this;
     }
 
-    public function addTriggerAfterSwap(string $event): static
+    public function addTriggerAfterSwap(string $key, string|array|null $body = null): static
     {
-        $this->triggersAfterSwap[] = $event;
+        $this->triggersAfterSwap[$key] = $body;
 
         return $this;
     }
@@ -108,18 +109,27 @@ class HtmxResponse extends Response
         return implode('', $this->fragments);
     }
 
-    private function appendTriggers()
+    private function appendTriggers(): void
     {
         if (count($this->triggers)) {
-            $this->headers->set('HX-Trigger', implode(',', $this->triggers));
+            $this->headers->set('HX-Trigger', $this->encodeTriggers($this->triggers));
         }
 
         if (count($this->triggersAfterSettle)) {
-            $this->headers->set('HX-Trigger-After-Settle', implode(',', $this->triggersAfterSettle));
+            $this->headers->set('HX-Trigger-After-Settle', $this->encodeTriggers($this->triggersAfterSettle));
         }
 
         if (count($this->triggersAfterSwap)) {
-            $this->headers->set('HX-Trigger-After-Swap', implode(',', $this->triggersAfterSwap));
+            $this->headers->set('HX-Trigger-After-Swap', $this->encodeTriggers($this->triggersAfterSwap));
         }
+    }
+
+    private function encodeTriggers(array $triggers): string
+    {
+        if (Utils::containsANonNullableElement($triggers)) {
+            return json_encode($triggers);
+        }
+
+        return implode(',', array_keys($triggers));
     }
 }

@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-htmx` will be documented in this file.
 
+## 0.5.0 - 2023-11-19
+
+### What's Changed
+
+- Added support for complex events for HX-Triggers Response Headers
+
 ## 0.4.0 - 2023-08-02
 
 ### What's Changed

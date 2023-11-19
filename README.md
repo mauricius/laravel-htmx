@@ -118,7 +118,7 @@ Route::get('/', function (HtmxRequest $request)
 });
 ```
 
-Additionally you can trigger [client-side events](https://htmx.org/headers/hx-trigger/) using the `addTrigger` methods.
+Additionally, you can trigger [client-side events](https://htmx.org/headers/hx-trigger/) using the `addTrigger` methods.
 
 ```php
 use Mauricius\LaravelHtmx\Http\HtmxResponse;
@@ -126,13 +126,41 @@ use Mauricius\LaravelHtmx\Http\HtmxResponse;
 Route::get('/', function (HtmxRequest $request)
 {
     return with(new HtmxResponse())
-        ->addTrigger($event)
-        ->addTriggerAfterSettle($event)
-        ->addTriggerAfterSwap($event);
+        ->addTrigger("myEvent")
+        ->addTriggerAfterSettle("myEventAfterSettle")
+        ->addTriggerAfterSwap("myEventAfterSwap");
+});
+```
+
+If you want to pass details along with the event you can use the second argument to send a body. It supports strings or arrays.
+
+```php
+use Mauricius\LaravelHtmx\Http\HtmxResponse;
+
+Route::get('/', function (HtmxRequest $request)
+{
+    return with(new HtmxResponse())
+        ->addTrigger("showMessage", "Here Is A Message")
+        ->addTriggerAfterSettle("showAnotherMessage", [
+            "level" => "info",
+            "message" => "Here Is A Message"
+        ]);
 });
 ```
 
 You can call those methods multiple times if you want to trigger multiple events.
+
+
+```php
+use Mauricius\LaravelHtmx\Http\HtmxResponse;
+
+Route::get('/', function (HtmxRequest $request)
+{
+    return with(new HtmxResponse())
+        ->addTrigger("event1", "A Message")
+        ->addTrigger("event2", "Another message");
+});
+```
 
 ### Render Blade Fragments
 

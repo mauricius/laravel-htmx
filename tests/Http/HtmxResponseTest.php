@@ -86,14 +86,43 @@ class HtmxResponseTest extends TestCase
         Route::get(
             'test',
             fn () => with(new HtmxResponse())
-            ->addTrigger('htmx:abort')
-            ->addTrigger('htmx:load')
+                ->addTrigger('htmx:abort')
+                ->addTrigger('htmx:load')
         );
 
         $response = $this->get('test');
 
         $response->assertOk();
         $response->assertHeader('HX-Trigger', 'htmx:abort,htmx:load');
+    }
+
+    /** @test */
+    public function adding_the_same_trigger_to_the_response_multiple_times_will_return_the_event_only_once()
+    {
+        Route::get(
+            'test',
+            fn () => with(new HtmxResponse())
+                ->addTrigger('htmx:abort')
+                ->addTrigger('htmx:abort')
+        );
+
+        $response = $this->get('test');
+
+        $response->assertOk();
+        $response->assertHeader('HX-Trigger', 'htmx:abort');
+    }
+
+    /** @test */
+    public function the_hx_trigger_header_should_json_encode_complex_events()
+    {
+        Route::get('test', fn () => with(new HtmxResponse())
+            ->addTrigger('htmx:load')
+            ->addTrigger('showMessage', 'Here Is A Message'));
+
+        $response = $this->get('test');
+
+        $response->assertOk();
+        $response->assertHeader('HX-Trigger', '{"htmx:load":null,"showMessage":"Here Is A Message"}');
     }
 
     /** @test */
@@ -108,7 +137,7 @@ class HtmxResponseTest extends TestCase
     }
 
     /** @test */
-    public function the_response_supports_triggering_after_settle_multiple_events()
+    public function the_response_supports_triggering_after_settle_multiple_times()
     {
         Route::get(
             'test',
@@ -124,6 +153,35 @@ class HtmxResponseTest extends TestCase
     }
 
     /** @test */
+    public function adding_the_same_trigger_after_settle_to_the_response_multiple_times_will_return_the_event_only_once()
+    {
+        Route::get(
+            'test',
+            fn () => with(new HtmxResponse())
+                ->addTriggerAfterSettle('htmx:abort')
+                ->addTriggerAfterSettle('htmx:abort')
+        );
+
+        $response = $this->get('test');
+
+        $response->assertOk();
+        $response->assertHeader('HX-Trigger-After-Settle', 'htmx:abort');
+    }
+
+    /** @test */
+    public function the_hx_trigger_after_settle_header_should_json_encode_complex_events()
+    {
+        Route::get('test', fn () => with(new HtmxResponse())
+            ->addTriggerAfterSettle('htmx:load')
+            ->addTriggerAfterSettle('showMessage', 'Here Is A Message'));
+
+        $response = $this->get('test');
+
+        $response->assertOk();
+        $response->assertHeader('HX-Trigger-After-Settle', '{"htmx:load":null,"showMessage":"Here Is A Message"}');
+    }
+
+    /** @test */
     public function the_response_should_trigger_a_client_side_event_after_the_swap_step_by_setting_the_hx_trigger_after_swap_header()
     {
         Route::get('test', fn () => with(new HtmxResponse())->addTriggerAfterSwap('htmx:abort'));
@@ -135,7 +193,7 @@ class HtmxResponseTest extends TestCase
     }
 
     /** @test */
-    public function the_response_supports_triggering_after_swap_multiple_multiple_events()
+    public function the_response_supports_triggering_after_swap_multiple_times()
     {
         Route::get(
             'test',
@@ -148,6 +206,35 @@ class HtmxResponseTest extends TestCase
 
         $response->assertOk();
         $response->assertHeader('HX-Trigger-After-Swap', 'htmx:abort,htmx:load');
+    }
+
+    /** @test */
+    public function adding_the_same_trigger_after_swap_to_the_response_multiple_times_will_return_the_event_only_once()
+    {
+        Route::get(
+            'test',
+            fn () => with(new HtmxResponse())
+                ->addTriggerAfterSwap('htmx:abort')
+                ->addTriggerAfterSwap('htmx:abort')
+        );
+
+        $response = $this->get('test');
+
+        $response->assertOk();
+        $response->assertHeader('HX-Trigger-After-Swap', 'htmx:abort');
+    }
+
+    /** @test */
+    public function the_hx_trigger_after_swap_header_should_json_encode_complex_events()
+    {
+        Route::get('test', fn () => with(new HtmxResponse())
+            ->addTriggerAfterSwap('htmx:load')
+            ->addTriggerAfterSwap('showMessage', 'Here Is A Message'));
+
+        $response = $this->get('test');
+
+        $response->assertOk();
+        $response->assertHeader('HX-Trigger-After-Swap', '{"htmx:load":null,"showMessage":"Here Is A Message"}');
     }
 
     /** @test */
