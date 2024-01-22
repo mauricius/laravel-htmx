@@ -35,6 +35,22 @@ class HtmxRequestTest extends TestCase
     }
 
     /** @test */
+    public function a_request_is_not_htmx_unboosted_if_it_is_an_htmx_request_but_a_boosted_one()
+    {
+        $request = $this->makeRequest('GET', '/', [], [], [], ['HTTP_HX-REQUEST' => true, 'HTTP_HX-BOOSTED' => true]);
+
+        $this->assertFalse($request->isHtmxButNotBoosted());
+    }
+
+    /** @test */
+    public function a_request_is_htmx_unboosted_if_it_is_an_htmx_request_but_not_a_boosted_one()
+    {
+        $request = $this->makeRequest('GET', '/', [], [], [], ['HTTP_HX-REQUEST' => true]);
+
+        $this->assertTrue($request->isHtmxButNotBoosted());
+    }
+
+    /** @test */
     public function a_request_should_return_the_current_url_of_the_browser_that_makes_the_request_if_the_hx_current_url_is_set()
     {
         $request = $this->makeRequest('GET', '/', [], [], [], ['HTTP_HX_CURRENT_URL' => 'http://localhost']);

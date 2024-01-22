@@ -29,6 +29,16 @@ class HtmxRequest extends Request
     }
 
     /**
+     * Indicates that the request is made via Htmx.
+     *
+     * @return bool
+     */
+    public function isHtmxButNotBoosted(): bool
+    {
+        return $this->isHtmxRequest() && !$this->isBoosted();
+    }
+
+    /**
      * The current URL of the browser when the htmx request was made.
      *
      * @return string|null
