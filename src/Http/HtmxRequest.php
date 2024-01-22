@@ -29,7 +29,7 @@ class HtmxRequest extends Request
     }
 
     /**
-     * Indicates that the request is made via Htmx.
+     * Indicates that the request is made via Htmx but *not* using hx-boost.
      *
      * @return bool
      */
