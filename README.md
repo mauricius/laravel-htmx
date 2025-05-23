@@ -16,19 +16,6 @@ You can install the package via composer:
 composer require mauricius/laravel-htmx
 ```
 
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="laravel-htmx"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
 To install htmx please browse [their documentation](https://htmx.org/docs/#installing)
 
 ## Usage
