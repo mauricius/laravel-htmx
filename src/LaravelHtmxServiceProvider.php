@@ -6,6 +6,7 @@ namespace Mauricius\LaravelHtmx;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Compilers\BladeCompiler;
 use Mauricius\LaravelHtmx\Http\HtmxRequest;
 use Mauricius\LaravelHtmx\View\BladeFragment;
 
@@ -17,9 +18,10 @@ class LaravelHtmxServiceProvider extends ServiceProvider
             $this->bootForConsole();
         }
 
-        $this->app['blade.compiler']->directive('fragment', fn () => '');
-
-        $this->app['blade.compiler']->directive('endfragment', fn () => '');
+        $this->callAfterResolving('blade.compiler', static function (BladeCompiler $blade) {
+            $blade->directive('endfragment', static fn () => '');
+            $blade->directive('fragment', static fn () => '');
+        });
 
         $this->app->bind(HtmxRequest::class, fn ($container) => HtmxRequest::createFrom($container['request']));
 
