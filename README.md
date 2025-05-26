@@ -209,7 +209,7 @@ Route::patch('/contacts/{id}/unarchive', function ($id) {
 
 #### OOB Swap support
 
-htmx supports updating multiple targets by returning multiple partial responses with [`hx-swap-oop`](https://htmx.org/docs/#oob_swaps). With this library you can return multiple fragments by using the `HtmxResponse` as a return type.
+htmx supports updating multiple targets by returning multiple partial responses with [`hx-swap-oob`](https://htmx.org/docs/#oob_swaps). With this library you can return multiple fragments by using the `HtmxResponse` as a return type.
 
 For instance, let's say that we want to mark a todo as completed using a PATCH request to `/todos/{id}`. With the same request, we also want to update in the footer how many todos are left:
 
