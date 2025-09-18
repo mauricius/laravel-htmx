@@ -18,7 +18,7 @@ class HtmxResponseTest extends TestCase
     /** @test */
     public function the_response_should_issue_a_soft_client_side_redirect_by_setting_the_hx_location_header()
     {
-        Route::get('test', fn () => with(new HtmxResponse())->location('http://foobar'));
+        Route::get('test', fn () => (new HtmxResponse())->location('http://foobar'));
 
         $response = $this->get('test');
 
@@ -27,9 +27,23 @@ class HtmxResponseTest extends TestCase
     }
 
     /** @test */
+    public function the_hx_location_header_should_support_json_notation(): void
+    {
+        Route::get('test', fn () => (new HtmxResponse())->location([
+            'path' => '/test2',
+            'target' => '#testdiv'
+        ]));
+
+        $response = $this->get('test');
+
+        $response->assertOk();
+        $response->assertHeader('HX-Location', '{"path":"/test2","target":"#testdiv"}');
+    }
+
+    /** @test */
     public function the_response_should_push_a_new_url_by_setting_the_hx_push_url_header()
     {
-        Route::get('test', fn () => with(new HtmxResponse())->pushUrl('http://foobar'));
+        Route::get('test', fn () => (new HtmxResponse())->pushUrl('http://foobar'));
 
         $response = $this->get('test');
 

@@ -19,9 +19,15 @@ class HtmxResponse extends Response
 
     private array $triggersAfterSwap = [];
 
-    public function location(string $url): static
+    /**
+     * @throws JsonException
+     */
+    public function location(string|array $payload): static
     {
-        $this->headers->set('HX-Location', $url);
+        $this->headers->set('HX-Location', is_array($payload)
+            ? json_encode($payload, JSON_THROW_ON_ERROR|JSON_UNESCAPED_SLASHES)
+            : $payload
+        );
 
         return $this;
     }

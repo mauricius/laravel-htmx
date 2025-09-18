@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static \Mauricius\LaravelHtmx\Http\HtmxResponse addFragment(string $view, string $fragment, array $data = [])
  * @method static \Mauricius\LaravelHtmx\Http\HtmxResponse addRenderedFragment(string $rendered)
- * @method static \Mauricius\LaravelHtmx\Http\HtmxResponse location(string $url)
+ * @method static \Mauricius\LaravelHtmx\Http\HtmxResponse location(string|array $payload)
  * @method static \Mauricius\LaravelHtmx\Http\HtmxResponse pushUrl(string $url)
  * @method static \Mauricius\LaravelHtmx\Http\HtmxResponse redirect(string $url)
  * @method static \Mauricius\LaravelHtmx\Http\HtmxResponse refresh()

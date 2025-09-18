@@ -96,8 +96,8 @@ use Mauricius\LaravelHtmx\Http\HtmxResponse;
 
 Route::get('/', function (HtmxRequest $request)
 {
-    return with(new HtmxResponse())
-        ->location($location) // Allows you to do a client-side redirect that does not do a full page reload
+    return (new HtmxResponse())
+        ->location($location) // Allows you to do a client-side redirect that does not do a full page reload (also supports arrays)
         ->pushUrl($url) // pushes a new url into the history stack
         ->replaceUrl($url) // replaces the current URL in the location bar
         ->reswap($option) // Allows you to specify how the response will be swapped
