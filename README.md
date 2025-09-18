@@ -112,7 +112,7 @@ use Mauricius\LaravelHtmx\Http\HtmxResponse;
 
 Route::get('/', function (HtmxRequest $request)
 {
-    return with(new HtmxResponse())
+    return (new HtmxResponse())
         ->addTrigger("myEvent")
         ->addTriggerAfterSettle("myEventAfterSettle")
         ->addTriggerAfterSwap("myEventAfterSwap");
@@ -126,7 +126,7 @@ use Mauricius\LaravelHtmx\Http\HtmxResponse;
 
 Route::get('/', function (HtmxRequest $request)
 {
-    return with(new HtmxResponse())
+    return (new HtmxResponse()
         ->addTrigger("showMessage", "Here Is A Message")
         ->addTriggerAfterSettle("showAnotherMessage", [
             "level" => "info",
@@ -143,7 +143,7 @@ use Mauricius\LaravelHtmx\Http\HtmxResponse;
 
 Route::get('/', function (HtmxRequest $request)
 {
-    return with(new HtmxResponse())
+    return (new HtmxResponse())
         ->addTrigger("event1", "A Message")
         ->addTrigger("event2", "Another message");
 });
@@ -202,7 +202,7 @@ Route::patch('/contacts/{id}/unarchive', function ($id) {
     return \Mauricius\LaravelHtmx\Facades\HtmxResponse::renderFragment('contacts.detail', 'archive-ui', compact('contact'));
 
     // Using the HtmxResponse class
-    return with(new \Mauricius\LaravelHtmx\Http\HtmxResponse())
+    return (new \Mauricius\LaravelHtmx\Http\HtmxResponse())
         ->renderFragment('contacts.detail', 'archive-ui', compact('contact'));
 });
 ```

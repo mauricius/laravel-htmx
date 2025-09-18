@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mauricius\LaravelHtmx\Http;
 
 use Illuminate\Http\Response;
+use JsonException;
 use Mauricius\LaravelHtmx\Utils;
 use Mauricius\LaravelHtmx\View\BladeFragment;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,6 +36,20 @@ class HtmxResponse extends Response
     public function pushUrl(string $url): static
     {
         $this->headers->set('HX-Push-Url', $url);
+
+        return $this;
+    }
+
+    public function redirect(string $url): static
+    {
+        $this->headers->set('HX-Redirect', $url);
+
+        return $this;
+    }
+
+    public function refresh(): static
+    {
+        $this->headers->set('HX-Refresh', 'true');
 
         return $this;
     }
