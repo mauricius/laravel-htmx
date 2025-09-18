@@ -106,7 +106,11 @@ class HtmxResponse extends Response
 
     public function getContent(): string
     {
-        return implode('', $this->fragments);
+        if (count($this->fragments) > 0) {
+            return implode('', $this->fragments);
+        }
+
+        return parent::getContent();
     }
 
     private function appendTriggers(): void

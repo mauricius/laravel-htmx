@@ -6,6 +6,7 @@ namespace Mauricius\LaravelHtmx\Tests\Http;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 use Mauricius\LaravelHtmx\Http\HtmxResponse;
 use Mauricius\LaravelHtmx\Tests\TestCase;
 use Spatie\Snapshots\MatchesSnapshots;
@@ -281,6 +282,18 @@ class HtmxResponseTest extends TestCase
             return with(new HtmxResponse())
                 ->addRenderedFragment(Blade::render('<p>Hello from {{ $message}}</p>', compact('message')));
         });
+
+        $response = $this->get('test');
+
+        $response->assertOk();
+
+        $this->assertMatchesSnapshot($response->getContent());
+    }
+
+    /** @test */
+    public function the_response_returns_the_whole_view(): void
+    {
+        Route::get('test', fn () => new HtmxResponse(View::make('nested')));
 
         $response = $this->get('test');
 
