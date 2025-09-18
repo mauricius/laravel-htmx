@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-htmx` will be documented in this file.
 
+## 0.9.0 - 2025-09-18
+
+### What's Changed
+
+- [Added support for expressing HX-Location using array](https://github.com/mauricius/laravel-htmx/pull/34)
+- [Implement missing redirect and refresh methods](https://github.com/mauricius/laravel-htmx/pull/34)
+- [Allow to pass the content in the HtmxResponse constructor](https://github.com/mauricius/laravel-htmx/pull/34)
+
 ## 0.8.0 - 2025-02-25
 
 ### What's Changed
