@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mauricius\LaravelHtmx\Http;
 
 use Illuminate\Http\Response;
+use JsonException;
 use Mauricius\LaravelHtmx\Utils;
 use Mauricius\LaravelHtmx\View\BladeFragment;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,9 +20,15 @@ class HtmxResponse extends Response
 
     private array $triggersAfterSwap = [];
 
-    public function location(string $url): static
+    /**
+     * @throws JsonException
+     */
+    public function location(string|array $payload): static
     {
-        $this->headers->set('HX-Location', $url);
+        $this->headers->set('HX-Location', is_array($payload)
+            ? json_encode($payload, JSON_THROW_ON_ERROR|JSON_UNESCAPED_SLASHES)
+            : $payload
+        );
 
         return $this;
     }
@@ -29,6 +36,20 @@ class HtmxResponse extends Response
     public function pushUrl(string $url): static
     {
         $this->headers->set('HX-Push-Url', $url);
+
+        return $this;
+    }
+
+    public function redirect(string $url): static
+    {
+        $this->headers->set('HX-Redirect', $url);
+
+        return $this;
+    }
+
+    public function refresh(): static
+    {
+        $this->headers->set('HX-Refresh', 'true');
 
         return $this;
     }
@@ -106,7 +127,11 @@ class HtmxResponse extends Response
 
     public function getContent(): string
     {
-        return implode('', $this->fragments);
+        if (count($this->fragments) > 0) {
+            return implode('', $this->fragments);
+        }
+
+        return parent::getContent();
     }
 
     private function appendTriggers(): void

@@ -96,8 +96,8 @@ use Mauricius\LaravelHtmx\Http\HtmxResponse;
 
 Route::get('/', function (HtmxRequest $request)
 {
-    return with(new HtmxResponse())
-        ->location($location) // Allows you to do a client-side redirect that does not do a full page reload
+    return (new HtmxResponse())
+        ->location($location) // Allows you to do a client-side redirect that does not do a full page reload (also supports arrays)
         ->pushUrl($url) // pushes a new url into the history stack
         ->replaceUrl($url) // replaces the current URL in the location bar
         ->reswap($option) // Allows you to specify how the response will be swapped
@@ -112,7 +112,7 @@ use Mauricius\LaravelHtmx\Http\HtmxResponse;
 
 Route::get('/', function (HtmxRequest $request)
 {
-    return with(new HtmxResponse())
+    return (new HtmxResponse())
         ->addTrigger("myEvent")
         ->addTriggerAfterSettle("myEventAfterSettle")
         ->addTriggerAfterSwap("myEventAfterSwap");
@@ -126,7 +126,7 @@ use Mauricius\LaravelHtmx\Http\HtmxResponse;
 
 Route::get('/', function (HtmxRequest $request)
 {
-    return with(new HtmxResponse())
+    return (new HtmxResponse()
         ->addTrigger("showMessage", "Here Is A Message")
         ->addTriggerAfterSettle("showAnotherMessage", [
             "level" => "info",
@@ -143,7 +143,7 @@ use Mauricius\LaravelHtmx\Http\HtmxResponse;
 
 Route::get('/', function (HtmxRequest $request)
 {
-    return with(new HtmxResponse())
+    return (new HtmxResponse())
         ->addTrigger("event1", "A Message")
         ->addTrigger("event2", "Another message");
 });
@@ -202,7 +202,7 @@ Route::patch('/contacts/{id}/unarchive', function ($id) {
     return \Mauricius\LaravelHtmx\Facades\HtmxResponse::renderFragment('contacts.detail', 'archive-ui', compact('contact'));
 
     // Using the HtmxResponse class
-    return with(new \Mauricius\LaravelHtmx\Http\HtmxResponse())
+    return (new \Mauricius\LaravelHtmx\Http\HtmxResponse())
         ->renderFragment('contacts.detail', 'archive-ui', compact('contact'));
 });
 ```
