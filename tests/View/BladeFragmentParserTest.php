@@ -8,6 +8,7 @@ use Mauricius\LaravelHtmx\View\BladeFragment;
 use Mauricius\LaravelHtmx\View\BladeFragmentParser;
 use Mauricius\LaravelHtmx\View\CloseFragmentElement;
 use Mauricius\LaravelHtmx\View\OpenFragmentElement;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class BladeFragmentParserTest extends TestCase
@@ -21,8 +22,8 @@ class BladeFragmentParserTest extends TestCase
         $this->parser = new BladeFragmentParser(BladeFragment::OPEN, BladeFragment::CLOSE);
     }
 
-    /** @test */
-    public function it_should_return_an_empty_array_of_nodes_when_parsing_an_empty_string()
+    #[Test]
+    public function it_should_return_an_empty_array_of_nodes_when_parsing_an_empty_string(): void
     {
         $content = "";
 
@@ -31,8 +32,8 @@ class BladeFragmentParserTest extends TestCase
         $this->assertEmpty($nodes);
     }
 
-    /** @test */
-    public function it_should_return_an_empty_array_of_nodes_when_parsing_blade_code_that_does_not_contain_any_fragments()
+    #[Test]
+    public function it_should_return_an_empty_array_of_nodes_when_parsing_blade_code_that_does_not_contain_any_fragments(): void
     {
         $content = <<<BLADE
             @if (true)
@@ -45,8 +46,8 @@ class BladeFragmentParserTest extends TestCase
         $this->assertEmpty($nodes);
     }
 
-    /** @test */
-    public function it_should_return_the_right_nodes_when_parsing_fragments_that_are_defined_on_a_single_line()
+    #[Test]
+    public function it_should_return_the_right_nodes_when_parsing_fragments_that_are_defined_on_a_single_line(): void
     {
         $content = <<<BLADE
             <p>Start</p>
@@ -67,8 +68,8 @@ class BladeFragmentParserTest extends TestCase
         $this->assertEquals(50, $nodes[1]->startOffset);
     }
 
-    /** @test */
-    public function it_should_return_the_right_nodes_when_parsing_fragments_that_are_defined_on_multiple_lines()
+    #[Test]
+    public function it_should_return_the_right_nodes_when_parsing_fragments_that_are_defined_on_multiple_lines(): void
     {
         $content = <<<BLADE
             <p>Start</p>
@@ -91,8 +92,8 @@ class BladeFragmentParserTest extends TestCase
         $this->assertEquals(71, $nodes[1]->startOffset);
     }
 
-    /** @test */
-    public function it_should_return_the_right_nodes_when_parsing_fragments_that_are_defined_non_uniformly()
+    #[Test]
+    public function it_should_return_the_right_nodes_when_parsing_fragments_that_are_defined_non_uniformly(): void
     {
         $content = <<<BLADE
             <p>Start</p>@fragment("foo")
@@ -114,8 +115,8 @@ class BladeFragmentParserTest extends TestCase
         $this->assertEquals(79, $nodes[1]->startOffset);
     }
 
-    /** @test */
-    public function it_should_return_nodes_even_when_parsing_unclosed_fragments()
+    #[Test]
+    public function it_should_return_nodes_even_when_parsing_unclosed_fragments(): void
     {
         $content = <<<BLADE
             <p>Start</p>
@@ -139,8 +140,8 @@ class BladeFragmentParserTest extends TestCase
         $this->assertEquals('foo', $nodes[1]->name);
     }
 
-    /** @test */
-    public function it_should_still_return_nodes_when_parsing_open_and_close_fragments_on_multiple_lines()
+    #[Test]
+    public function it_should_still_return_nodes_when_parsing_open_and_close_fragments_on_multiple_lines(): void
     {
         $content = <<<BLADE
             <p>Start</p>
