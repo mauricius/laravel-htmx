@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-htmx` will be documented in this file.
 
+## 0.10.0 - 2026-03-19
+
+- [Added support for Laravel 13 and PHP 8.5](https://github.com/mauricius/laravel-htmx/pull/35)
+- Removed support for Laravel 9, 10, 11 and PHP 8.1(https://github.com/mauricius/laravel-htmx/pull/36)
+
 ## 0.9.0 - 2025-09-18
 
 ### What's Changed
