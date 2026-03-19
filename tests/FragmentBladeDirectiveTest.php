@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mauricius\LaravelHtmx\Tests;
 
+use PHPUnit\Framework\Attributes\Test;
 use RuntimeException;
 use Spatie\Snapshots\MatchesSnapshots;
 
@@ -11,8 +12,8 @@ class FragmentBladeDirectiveTest extends TestCase
 {
     use MatchesSnapshots;
 
-    /** @test */
-    public function the_view_still_renders_correctly_if_it_contains_fragments()
+    #[Test]
+    public function the_view_still_renders_correctly_if_it_contains_fragments(): void
     {
         $message = 'htmx';
 
@@ -21,8 +22,8 @@ class FragmentBladeDirectiveTest extends TestCase
         $this->assertMatchesSnapshot($renderedView);
     }
 
-    /** @test */
-    public function it_throws_an_exception_if_the_specified_fragment_does_not_exists_in_the_view()
+    #[Test]
+    public function it_throws_an_exception_if_the_specified_fragment_does_not_exists_in_the_view(): void
     {
         $fragment = 'missing';
         $view = 'basic';
@@ -33,8 +34,8 @@ class FragmentBladeDirectiveTest extends TestCase
         view()->renderFragment($view, $fragment);
     }
 
-    /** @test */
-    public function it_throws_an_exception_if_the_specified_fragment_exists_multiple_times_in_the_view()
+    #[Test]
+    public function it_throws_an_exception_if_the_specified_fragment_exists_multiple_times_in_the_view(): void
     {
         $fragment = 'duplicate';
         $view = 'duplicate';
@@ -45,8 +46,8 @@ class FragmentBladeDirectiveTest extends TestCase
         view()->renderFragment($view, $fragment);
     }
 
-    /** @test */
-    public function the_render_fragment_view_macro_can_render_a_single_fragment_whose_name_is_enclosed_in_double_quotes()
+    #[Test]
+    public function the_render_fragment_view_macro_can_render_a_single_fragment_whose_name_is_enclosed_in_double_quotes(): void
     {
         $message = 'htmx';
 
@@ -55,8 +56,8 @@ class FragmentBladeDirectiveTest extends TestCase
         $this->assertMatchesSnapshot($renderedView);
     }
 
-    /** @test */
-    public function the_render_fragment_view_macro_can_render_a_single_fragment_whose_name_is_enclosed_in_single_quotes()
+    #[Test]
+    public function the_render_fragment_view_macro_can_render_a_single_fragment_whose_name_is_enclosed_in_single_quotes(): void
     {
         $message = 'htmx';
 
@@ -65,8 +66,8 @@ class FragmentBladeDirectiveTest extends TestCase
         $this->assertMatchesSnapshot($renderedView);
     }
 
-    /** @test */
-    public function the_render_fragment_view_macro_can_render_a_single_fragment_defined_inline()
+    #[Test]
+    public function the_render_fragment_view_macro_can_render_a_single_fragment_defined_inline(): void
     {
         $message = 'htmx';
 
@@ -75,24 +76,24 @@ class FragmentBladeDirectiveTest extends TestCase
         $this->assertMatchesSnapshot($renderedView);
     }
 
-    /** @test */
-    public function the_render_fragment_view_macro_can_render_a_single_fragment_even_if_it_is_nested_in_other_fragments()
+    #[Test]
+    public function the_render_fragment_view_macro_can_render_a_single_fragment_even_if_it_is_nested_in_other_fragments(): void
     {
         $renderedView = view()->renderFragment('nested', 'inner');
 
         $this->assertMatchesSnapshot($renderedView);
     }
 
-    /** @test */
-    public function the_render_fragment_view_macro_can_render_a_single_fragment_even_if_it_is_not_aligned_with_the_closing_fragment()
+    #[Test]
+    public function the_render_fragment_view_macro_can_render_a_single_fragment_even_if_it_is_not_aligned_with_the_closing_fragment(): void
     {
         $renderedView = view()->renderFragment('misaligned', 'inner');
 
         $this->assertMatchesSnapshot($renderedView);
     }
 
-    /** @test */
-    public function the_render_fragment_view_macro_can_render_a_single_fragment_even_if_it_it_contains_multibyte_characters()
+    #[Test]
+    public function the_render_fragment_view_macro_can_render_a_single_fragment_even_if_it_it_contains_multibyte_characters(): void
     {
         $message = 'htmx';
 
