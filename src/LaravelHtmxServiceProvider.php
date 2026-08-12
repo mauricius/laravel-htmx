@@ -15,8 +15,10 @@ class LaravelHtmxServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->callAfterResolving('blade.compiler', static function (BladeCompiler $blade) {
-            $blade->directive('endfragment', static fn () => '');
-            $blade->directive('fragment', static fn () => '');
+            if (! method_exists($blade, 'compileFragment')) {
+                $blade->directive('endfragment', static fn () => '');
+                $blade->directive('fragment', static fn () => '');
+            }
         });
 
         $this->app->bind(HtmxRequest::class, fn ($container) => HtmxRequest::createFrom($container['request']));
